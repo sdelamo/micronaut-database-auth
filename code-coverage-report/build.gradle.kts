@@ -8,7 +8,7 @@ repositories {
 }
 
 dependencies {
-    jacocoAggregation(project(":example-micronaut-lib"))
+    jacocoAggregation(project(":micronaut-database-auth"))
 }
 
 reporting {

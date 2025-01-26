@@ -2,7 +2,7 @@ plugins {
     id("io.micronaut.platform.catalog") version "4.4.5"
 }
 
-rootProject.name = "MicronautLibrary"
+rootProject.name = "micronaut-database-auth-parent"
 
-include("example-micronaut-lib")
+include("micronaut-database-auth")
 include("code-coverage-report")
