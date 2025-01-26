@@ -1,0 +1,25 @@
+name: GraalVM build
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1.2.8 # https://github.com/graalvm/setup-graalvm
+        with:
+          java-version: '21'
+          distribution: 'graalvm'
+      - name: Echo Java and Native Image version
+        run: |
+          echo "GRAALVM_HOME: $GRAALVM_HOME"
+          echo "JAVA_HOME: $JAVA_HOME"
+          java --version
+          native-image --version
+      - name: Native Compile
+        run: ./gradlew nativeCompile
+      - name: Native Test
+        run: ./gradlew nativeCompile
