@@ -19,6 +19,7 @@ import com.softamo.micronaut.dbauth.constraints.PasswordMatch;
 import com.softamo.micronaut.dbauth.constraints.RepeatPassword;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.serde.annotation.Serdeable;
+import io.micronaut.views.fields.annotations.InputHidden;
 import io.micronaut.views.fields.annotations.InputPassword;
 import jakarta.validation.constraints.NotBlank;
 
@@ -32,7 +33,7 @@ import jakarta.validation.constraints.NotBlank;
  */
 @PasswordMatch
 @Serdeable
-public record ResetPasswordForm(@NonNull @NotBlank String token,
+public record ResetPasswordForm(@NonNull @NotBlank @InputHidden String token,
                                 @NonNull @NotBlank @InputPassword String password,
                                 @NonNull @NotBlank @InputPassword String repeatPassword) implements RepeatPassword {
 }
