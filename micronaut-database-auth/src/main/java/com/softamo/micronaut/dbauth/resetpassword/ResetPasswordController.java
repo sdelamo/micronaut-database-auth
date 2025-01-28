@@ -42,7 +42,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Requires(property = ResetPasswordConfigurationProperties.PREFIX + ".enabled", notEquals = StringUtils.FALSE, defaultValue = StringUtils.TRUE)
-@Requires(beans = {FormGenerator.class, ResetPasswordConfiguration.class})
+@Requires(beans = {LoginControllerConfiguration.class, ResetPasswordConfiguration.class, FormGenerator.class, ResetPasswordService.class, ResetPasswordTokenValidator.class})
 @Requires(classes = Controller.class)
 @Secured(SecurityRule.IS_ANONYMOUS)
 @Controller("${" + ResetPasswordConfigurationProperties.PREFIX + ".path:/resetPassword}")
