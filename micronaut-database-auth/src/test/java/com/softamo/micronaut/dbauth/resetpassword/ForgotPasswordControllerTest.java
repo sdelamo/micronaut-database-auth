@@ -37,6 +37,7 @@ import jakarta.inject.Singleton;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledInNativeImage;
 
 import java.util.Map;
 
@@ -51,6 +52,7 @@ class ResetPasswordControllerTest {
     public static final String PATH = "/resetPassword";
     private Argument<String> ARG_HTML = Argument.of(String.class);
 
+    @DisabledInNativeImage
     @Test
     void resetPasswordFormIsRendered(@Client("/") HttpClient httpClient,
                                      ResetPasswordTokenGenerator tokenGenerator) {
@@ -72,10 +74,7 @@ class ResetPasswordControllerTest {
         assertTrue(html.contains("action=\"/resetPassword\""));
     }
 
-    private static HttpRequest<?> resetPasswordFormRequest(String token) {
-        return HttpRequest.GET(UriBuilder.of(PATH).queryParam("token", token).build()).accept(MediaType.TEXT_HTML);
-    }
-
+    @DisabledInNativeImage
     @Test
     void resetPasswordFormSubmissionWithNotMatchingPasswords(@Client("/") HttpClient httpClient,
                                                              ResetPasswordTokenGenerator tokenGenerator) {
@@ -88,6 +87,7 @@ class ResetPasswordControllerTest {
         assertEquals(HttpStatus.BAD_REQUEST, ex.getStatus());
     }
 
+    @DisabledInNativeImage
     @Test
     void resetPasswordFormSubmission(@Client("/") HttpClient httpClient, ResetPasswordTokenGenerator tokenGenerator) {
         BlockingHttpClient client = httpClient.toBlocking();
@@ -97,6 +97,10 @@ class ResetPasswordControllerTest {
         String location = response.getHeaders().get(HttpHeaders.LOCATION);
         assertNotNull(location);
         assertEquals("/login", location);
+    }
+
+    private static HttpRequest<?> resetPasswordFormRequest(String token) {
+        return HttpRequest.GET(UriBuilder.of(PATH).queryParam("token", token).build()).accept(MediaType.TEXT_HTML);
     }
 
     private static HttpRequest<?> formSubmission(String token, String password, String repeatPassword) {

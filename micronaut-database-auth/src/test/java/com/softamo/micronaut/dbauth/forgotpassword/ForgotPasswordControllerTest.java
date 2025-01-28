@@ -32,6 +32,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledInNativeImage;
 
 import java.util.Locale;
 import java.util.Map;
@@ -46,6 +47,7 @@ class ForgotPasswordControllerTest {
     public static final String PATH = "/forgotPassword";
     private Argument<String> ARG_HTML = Argument.of(String.class);
 
+    @DisabledInNativeImage
     @Test
     void forgotPasswordFormIsRendered(@Client("/") HttpClient httpClient) {
         HttpRequest<?> forgotPasswordRequest =
@@ -57,12 +59,14 @@ class ForgotPasswordControllerTest {
         assertTrue(html.contains("action=\"/forgotPassword\""));
     }
 
+    @DisabledInNativeImage
     @Test
     void forgotPasswordFormSubmission(@Client("/") HttpClient httpClient) {
         BlockingHttpClient client = httpClient.toBlocking();
         assertDoesNotThrow(() -> client.retrieve(formSubmission("foo@email.com")));
     }
 
+    @DisabledInNativeImage
     @Test
     void forgotPasswordFormSubmissionWithInvalidEmail(@Client("/") HttpClient httpClient) {
         BlockingHttpClient client = httpClient.toBlocking();
