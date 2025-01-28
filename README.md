@@ -34,6 +34,20 @@ This template applies the [Micronaut Version Catalogue](https://micronaut-projec
 
 This template uses the [Spotless Gradle Plugin](https://github.com/diffplug/spotless) to ensure every file contains a license matching the template in `config/spotless.license.java`.
 
+
+## Documentation
+
+You can write the library documentation with [Asciidoc](https://docs.asciidoctor.org/asciidoc/latest/).
+
+The submodule `docs` applies the [Asciidoc Gradle Plugin](https://asciidoctor.github.io/asciidoctor-gradle-plugin/master/user-guide/) to generate HTML documentation.
+
+`./gradlew :docs:asciidoctor`
+
+You can find the generated documentation in `docs/build/asciidoc/index.html`.
+
+The asciidoc source files are in `docs/src/docs/asciidoc`.
+
+
 ## Checkstyle
 
 The template applies the [Checkstyle Gradle Plugin](https://docs.gradle.org/current/userguide/checkstyle_plugin.html). You can configure it with `config/checkstyle/checkstyle.xml` and `config/checkstyle/supressions.xml`
