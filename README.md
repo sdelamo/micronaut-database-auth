@@ -1,43 +1,22 @@
+# Micronaut Database Authentication
 
-# Micronaut Library Gradle Template
-[GitHub Repository Template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository) to create a [Micronaut](https://micronaut.io) library with a Gradle Build
+[Micronaut](https://micronaut.io) Java Library. 
 
-## Language and Test Framework
+Latest version is compatible with Java 17 and Micronaut 4.  
 
-This template assumes you want to write a Java Library compatible with Java 17 and uses [Micronaut JUnit 5](https://micronaut-projects.github.io/micronaut-test/4.6.2/guide/#junit5) for testing. 
+## Contribution 
 
-## Library Configuration
-
-Modify `gradle.properties`. Change `TODO` items with your project details.
-
+### Dependency Management
 ### Micronaut Version
 
-You define the version of [Micronaut Platform](https://micronaut-projects.github.io/micronaut-platform/latest/guide/) in `micronautVersion` in `gradle/libs.versions.toml`.
-
-### Micronaut Gradle Plugin
-
-You define the version of [Micronaut Gradle Plugin](https://micronaut-projects.github.io/micronaut-gradle-plugin/latest/index.html) in `micronaut-gradle-plugin` in `gradle/libs.versions.toml` and in `settings.gradle.kts`.
-
-## Example
-
-This repository contains a module named `example-micronaut-lib`. It is an example of a Micronaut library which exposes introspected classes, a `@Singleton` `PaginationFactory` and configuration bean `PaginationConfiguration` with a default value defined in `PaginationConfigurationProperties`.
-
-`example-micronaut-lib/build.gradle.kts` show you can simply apply the internal plugin `io.micronaut.library.maven-publish` or the `io.micronaut.library.maven-java-library` plugin, if you don't whish to publish to  Sonatype OSSRH. It applies `checkstyle`, `spotless`, `JaCoCo`, and GraalVM Native Image plugins.
-
-## Micronaut Platform Gradle Version Catalogue
-
-This template applies the [Micronaut Version Catalogue](https://micronaut-projects.github.io/micronaut-platform/latest/guide) in root `settings.gradle.kts`.
-
-`example-micronaut-lib/build.gradle.kts`show how to use the Micronaut Platform version Catalogue.
+You define the version of [Micronaut Platform](https://micronaut-projects.github.io/micronaut-platform/latest/guide/) and [Micronaut Gradle Plugin](https://micronaut-projects.github.io/micronaut-gradle-plugin/latest/index.html) in `micronautVersion` in `gradle/libs.versions.toml`.
+The Micronaut Gradle Plugin is also defined in `settings.gradle.kts`.
 
 ## License Management
 
 This template uses the [Spotless Gradle Plugin](https://github.com/diffplug/spotless) to ensure every file contains a license matching the template in `config/spotless.license.java`.
 
-
 ## Documentation
-
-You can write the library documentation with [Asciidoc](https://docs.asciidoctor.org/asciidoc/latest/).
 
 The submodule `docs` applies the [Asciidoc Gradle Plugin](https://asciidoctor.github.io/asciidoctor-gradle-plugin/master/user-guide/) to generate HTML documentation.
 
@@ -46,7 +25,6 @@ The submodule `docs` applies the [Asciidoc Gradle Plugin](https://asciidoctor.gi
 You can find the generated documentation in `docs/build/asciidoc/index.html`.
 
 The asciidoc source files are in `docs/src/docs/asciidoc`.
-
 
 ## Checkstyle
 
