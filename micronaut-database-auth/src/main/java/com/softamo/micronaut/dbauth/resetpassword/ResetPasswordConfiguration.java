@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.softamo.micronaut.dbauth.forgotpassword;
+package com.softamo.micronaut.dbauth.resetpassword;
 
 import com.softamo.micronaut.dbauth.ControllerConfiguration;
 
@@ -22,16 +22,10 @@ import com.softamo.micronaut.dbauth.ControllerConfiguration;
  * @author Sergio del Amo
  * @since 0.0.1
  */
-public interface ForgotPasswordConfiguration extends ControllerConfiguration {
+public interface ResetPasswordConfiguration extends ControllerConfiguration {
     /**
      *
      * @return View name to render the forgot password form.
      */
     String getView();
-
-    /**
-     *
-     * @return View name to render the forgot password instructions page. The view after submitting the forgot password form. Typically, asking the user to check his email..
-     */
-    String getInstructionsView();
 }

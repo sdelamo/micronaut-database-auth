@@ -26,7 +26,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.Locale;
 
-@Requires(beans = {EmailSender.class})
+@Requires(beans = {EmailSender.class, ForgotPasswordEmailComposer.class})
 @Singleton
 @Internal
 class DefaultForgotPasswordFormService implements ForgotPasswordFormService {

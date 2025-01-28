@@ -15,23 +15,17 @@
  */
 package com.softamo.micronaut.dbauth.forgotpassword;
 
-import com.softamo.micronaut.dbauth.ControllerConfiguration;
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import org.junit.jupiter.api.Test;
 
-/**
- * Forgot Password Configuration.
- * @author Sergio del Amo
- * @since 0.0.1
- */
-public interface ForgotPasswordConfiguration extends ControllerConfiguration {
-    /**
-     *
-     * @return View name to render the forgot password form.
-     */
-    String getView();
+import static org.junit.jupiter.api.Assertions.*;
 
-    /**
-     *
-     * @return View name to render the forgot password instructions page. The view after submitting the forgot password form. Typically, asking the user to check his email..
-     */
-    String getInstructionsView();
+@MicronautTest(startApplication = false)
+class ResetPasswordTokenGeneratorTest {
+
+    @Test
+    void resetPassword(ResetPasswordTokenGenerator generator) {
+        String recipient = "foo@email.com";
+        assertDoesNotThrow(() -> generator.generateResetPasswordToken(recipient));
+    }
 }

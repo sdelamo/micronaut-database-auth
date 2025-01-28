@@ -13,25 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.softamo.micronaut.dbauth.forgotpassword;
+package com.softamo.micronaut.dbauth;
 
-import com.softamo.micronaut.dbauth.ControllerConfiguration;
+import io.micronaut.core.annotation.Internal;
 
 /**
- * Forgot Password Configuration.
+ * Constants for Views.
  * @author Sergio del Amo
  * @since 0.0.1
  */
-public interface ForgotPasswordConfiguration extends ControllerConfiguration {
+@Internal
+public final class ViewsUtils {
     /**
-     *
-     * @return View name to render the forgot password form.
+     * Model key for a form.
      */
-    String getView();
+    public static final String KEY_FORM = "form";
 
-    /**
-     *
-     * @return View name to render the forgot password instructions page. The view after submitting the forgot password form. Typically, asking the user to check his email..
-     */
-    String getInstructionsView();
+    private ViewsUtils() {
+    }
 }

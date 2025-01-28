@@ -15,17 +15,21 @@
  */
 package com.softamo.micronaut.dbauth.forgotpassword;
 
+import com.softamo.micronaut.dbauth.resetpassword.ResetPasswordConfiguration;
 import io.micronaut.context.MessageSource;
+import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.email.Email;
 import io.micronaut.email.configuration.FromConfiguration;
+import io.micronaut.http.uri.UriBuilder;
 import jakarta.inject.Singleton;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Locale;
 
+@Requires(beans = {MessageSource.class, FromConfiguration.class, ResetPasswordTokenGenerator.class})
 @Singleton
 @Internal
 class DefaultForgotPasswordEmailComposer implements ForgotPasswordEmailComposer {
@@ -33,13 +37,16 @@ class DefaultForgotPasswordEmailComposer implements ForgotPasswordEmailComposer 
     private final MessageSource messageSource;
     private final FromConfiguration fromConfiguration;
     private final ResetPasswordTokenGenerator resetPasswordTokenGenerator;
+    private final ResetPasswordConfiguration resetPasswordConfiguration;
 
     DefaultForgotPasswordEmailComposer(MessageSource messageSource,
                                        FromConfiguration fromConfiguration,
-                                       ResetPasswordTokenGenerator resetPasswordTokenGenerator) {
+                                       ResetPasswordTokenGenerator resetPasswordTokenGenerator,
+                                       ResetPasswordConfiguration resetPasswordConfiguration) {
         this.messageSource = messageSource;
         this.fromConfiguration = fromConfiguration;
         this.resetPasswordTokenGenerator = resetPasswordTokenGenerator;
+        this.resetPasswordConfiguration = resetPasswordConfiguration;
     }
 
     @Override
@@ -50,10 +57,11 @@ class DefaultForgotPasswordEmailComposer implements ForgotPasswordEmailComposer 
         String token = resetPasswordTokenGenerator.generateResetPasswordToken(recipient);
         String subject = messageSource.getMessage("resetPassword.email.subject", "Reset your password", locale);
         String instructions = messageSource.getMessage("resetPassword.email.instructions", "To set a password for your account, just click the button below and follow the instructions.", locale);
+        String link = UriBuilder.of(host).path(resetPasswordConfiguration.getPath()).queryParam("token", token).build().toString();
         return Email.builder()
                 .to(recipient)
                 .from(fromConfiguration.getFrom())
                 .subject(subject)
-                .body(String.join(LINE_BREAK, instructions, token));
+                .body(String.join(LINE_BREAK, instructions, link));
     }
 }

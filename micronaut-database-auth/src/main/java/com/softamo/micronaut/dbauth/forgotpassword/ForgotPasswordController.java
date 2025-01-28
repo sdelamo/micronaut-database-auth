@@ -15,6 +15,7 @@
  */
 package com.softamo.micronaut.dbauth.forgotpassword;
 
+import com.softamo.micronaut.dbauth.ViewsUtils;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.util.StringUtils;
@@ -38,13 +39,11 @@ import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
 
-@Requires(property = ForgotPasswordConfiguration.PREFIX + ".enabled", notEquals = StringUtils.FALSE, defaultValue = StringUtils.TRUE)
-@Controller("${" + ForgotPasswordConfiguration.PREFIX + ".path:/forgotPassword}")
+@Requires(property = ForgotPasswordConfigurationProperties.PREFIX + ".enabled", notEquals = StringUtils.FALSE, defaultValue = StringUtils.TRUE)
+@Controller("${" + ForgotPasswordConfigurationProperties.PREFIX + ".path:/forgotPassword}")
+@Requires(beans = {HttpLocaleResolver.class, HttpHostResolver.class, FormGenerator.class, ForgotPasswordConfiguration.class, ForgotPasswordFormService.class})
 @Secured(SecurityRule.IS_ANONYMOUS)
 class ForgotPasswordController {
-
-    private static final String KEY_FORM = "form";
-
     private final HttpLocaleResolver httpLocaleResolver;
     private final FormGenerator formGenerator;
     private final ForgotPasswordConfiguration forgotPasswordConfiguration;
@@ -65,15 +64,15 @@ class ForgotPasswordController {
 
     @Produces(MediaType.TEXT_HTML)
     @Get
-    ModelAndView<Map<String, Object>> index() {
+    ModelAndView<Map<String, Object>> resetPassword() {
         Form form = formGenerator.generate(forgotPasswordConfiguration.getPath(), ForgotPasswordForm.class);
         return new ModelAndView<>(forgotPasswordConfiguration.getView(),
-                Map.of(KEY_FORM, form));
+                Map.of(ViewsUtils.KEY_FORM, form));
     }
 
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Post
-    ModelAndView<Map<String, Object>> submit(@NonNull @NotNull @Valid @Body ForgotPasswordForm forgotPasswordForm,
+    ModelAndView<Map<String, Object>> resetPasswordSubmit(@NonNull @NotNull @Valid @Body ForgotPasswordForm forgotPasswordForm,
                                              HttpRequest<?> request) {
         Locale locale = httpLocaleResolver.resolveOrDefault(request);
         String host = httpHostResolver.resolve(request);
@@ -84,7 +83,7 @@ class ForgotPasswordController {
 
     @Error
     public HttpResponse<ModelAndView<Map<String, Object>>> error(ConstraintViolationException e) {
-        return HttpResponse.unprocessableEntity().body(index());
+        return HttpResponse.unprocessableEntity().body(resetPassword());
     }
 
 }

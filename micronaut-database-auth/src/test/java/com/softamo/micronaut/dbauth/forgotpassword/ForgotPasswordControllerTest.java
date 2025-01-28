@@ -58,10 +58,15 @@ class ForgotPasswordControllerTest {
     }
 
     @Test
-    void forgotPasswordFormSubmissionWithInvalidEmail(@Client("/") HttpClient httpClient) {
-        HttpRequest<?> forgotPasswordRequest =
-                HttpRequest.POST(PATH, Map.of("email", "invalidemail")).contentType(MediaType.APPLICATION_FORM_URLENCODED_TYPE);
+    void forgotPasswordFormSubmission(@Client("/") HttpClient httpClient) {
         BlockingHttpClient client = httpClient.toBlocking();
+        assertDoesNotThrow(() -> client.retrieve(formSubmission("foo@email.com")));
+    }
+
+    @Test
+    void forgotPasswordFormSubmissionWithInvalidEmail(@Client("/") HttpClient httpClient) {
+        BlockingHttpClient client = httpClient.toBlocking();
+        HttpRequest<?> forgotPasswordRequest = formSubmission("invalidemail");
         HttpClientResponseException ex = assertThrows(HttpClientResponseException.class, () -> client.retrieve(forgotPasswordRequest, ARG_HTML, ARG_HTML));
         assertEquals(422, ex.getStatus().getCode());
         Optional<String> htmlOptional = ex.getResponse().getBody(String.class);
@@ -70,6 +75,11 @@ class ForgotPasswordControllerTest {
         assertNotNull(html);
         assertTrue(html.contains("<form"));
         assertTrue(html.contains("action=\"/forgotPassword\""));
+    }
+
+    private static HttpRequest<?> formSubmission(String email) {
+        return HttpRequest.POST(PATH, Map.of("email", email))
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED_TYPE);
     }
 
     @Requires(property = "spec.name", value = "ForgotPasswordControllerTest")

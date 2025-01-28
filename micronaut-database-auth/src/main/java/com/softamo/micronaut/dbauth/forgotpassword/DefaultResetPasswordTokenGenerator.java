@@ -15,6 +15,7 @@
  */
 package com.softamo.micronaut.dbauth.forgotpassword;
 
+import io.micronaut.context.annotation.Requires;
 import io.micronaut.context.exceptions.ConfigurationException;
 import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.annotation.NonNull;
@@ -26,9 +27,11 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 /**
+ * Default implementation of {@link ResetPasswordTokenGenerator}.
  * @author Sergio del Amo
  * @since 0.0.1
  */
+@Requires(beans = {TokenGenerator.class, AccessTokenConfiguration.class})
 @Internal
 @Singleton
 class DefaultResetPasswordTokenGenerator implements ResetPasswordTokenGenerator {
