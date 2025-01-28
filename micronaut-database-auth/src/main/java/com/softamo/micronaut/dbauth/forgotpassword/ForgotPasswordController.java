@@ -15,7 +15,7 @@
  */
 package com.softamo.micronaut.dbauth.forgotpassword;
 
-import com.softamo.micronaut.dbauth.ViewsUtils;
+import com.softamo.micronaut.dbauth.utils.ViewsUtils;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.util.StringUtils;
@@ -64,7 +64,7 @@ class ForgotPasswordController {
 
     @Produces(MediaType.TEXT_HTML)
     @Get
-    ModelAndView<Map<String, Object>> resetPassword() {
+    ModelAndView<Map<String, Object>> forgotPassword() {
         Form form = formGenerator.generate(forgotPasswordConfiguration.getPath(), ForgotPasswordForm.class);
         return new ModelAndView<>(forgotPasswordConfiguration.getView(),
                 Map.of(ViewsUtils.KEY_FORM, form));
@@ -72,7 +72,7 @@ class ForgotPasswordController {
 
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Post
-    ModelAndView<Map<String, Object>> resetPasswordSubmit(@NonNull @NotNull @Valid @Body ForgotPasswordForm forgotPasswordForm,
+    ModelAndView<Map<String, Object>> forgotPasswordSubmit(@NonNull @NotNull @Valid @Body ForgotPasswordForm forgotPasswordForm,
                                              HttpRequest<?> request) {
         Locale locale = httpLocaleResolver.resolveOrDefault(request);
         String host = httpHostResolver.resolve(request);
@@ -83,7 +83,7 @@ class ForgotPasswordController {
 
     @Error
     public HttpResponse<ModelAndView<Map<String, Object>>> error(ConstraintViolationException e) {
-        return HttpResponse.unprocessableEntity().body(resetPassword());
+        return HttpResponse.unprocessableEntity().body(forgotPassword());
     }
 
 }

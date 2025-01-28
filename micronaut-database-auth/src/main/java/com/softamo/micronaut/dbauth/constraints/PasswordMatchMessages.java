@@ -13,22 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.softamo.micronaut.dbauth;
+package com.softamo.micronaut.dbauth.constraints;
 
-import io.micronaut.core.annotation.Internal;
+import io.micronaut.context.StaticMessageSource;
+import jakarta.inject.Singleton;
 
 /**
- * Constants for Views.
+ * {@link StaticMessageSource} implementation for {@link PasswordMatch} which adds the passwords do not match message.
  * @author Sergio del Amo
  * @since 0.0.1
  */
-@Internal
-public final class ViewsUtils {
-    /**
-     * Model key for a form.
-     */
-    public static final String KEY_FORM = "form";
+@Singleton
+public class PasswordMatchMessages extends StaticMessageSource {
+    private static final String PASSWORD_MATCH_MESSAGE = "Passwords do not match";
+    private static final String MESSAGE_SUFFIX = ".message";
 
-    private ViewsUtils() {
+    /**
+     * Adds the message for {@link PasswordMatch} in the constructor.
+     */
+    public PasswordMatchMessages() {
+        addMessage(PasswordMatch.class.getName() + MESSAGE_SUFFIX, PASSWORD_MATCH_MESSAGE);
     }
 }

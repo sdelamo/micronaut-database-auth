@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.softamo.micronaut.dbauth;
+package com.softamo.micronaut.dbauth.constraints;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -30,7 +30,7 @@ public @interface PasswordMatch {
     /**
      * Message.
      */
-    String MESSAGE = "com.softamo.micronaut.dbauth.PasswordMatch.message";
+    String MESSAGE = "com.softamo.micronaut.dbauth.constraints.PasswordMatch.message";
 
     /**
      *

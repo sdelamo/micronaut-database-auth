@@ -8,7 +8,9 @@ dependencies {
     api(mn.micronaut.views.fieldset)
 
     implementation(mn.micronaut.email)
-    compileOnly(mn.micronaut.security)
+    implementation(mn.micronaut.security)
+    compileOnly(mn.micronaut.security.jwt)
+    compileOnly(mn.micronaut.reactor)
     implementation(mn.micronaut.views.core)
     implementation(mn.micronaut.http.server)
 

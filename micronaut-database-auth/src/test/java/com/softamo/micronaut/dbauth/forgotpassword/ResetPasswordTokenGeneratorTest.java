@@ -15,6 +15,7 @@
  */
 package com.softamo.micronaut.dbauth.forgotpassword;
 
+import com.softamo.micronaut.dbauth.resetpassword.ResetPasswordTokenGenerator;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import org.junit.jupiter.api.Test;
 

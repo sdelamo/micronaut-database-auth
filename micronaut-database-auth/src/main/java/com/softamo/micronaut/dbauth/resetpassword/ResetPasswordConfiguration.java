@@ -15,7 +15,7 @@
  */
 package com.softamo.micronaut.dbauth.resetpassword;
 
-import com.softamo.micronaut.dbauth.ControllerConfiguration;
+import com.softamo.micronaut.dbauth.utils.ControllerConfiguration;
 
 /**
  * Forgot Password Configuration.

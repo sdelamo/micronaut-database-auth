@@ -15,6 +15,8 @@
  */
 package com.softamo.micronaut.dbauth;
 
+import com.softamo.micronaut.dbauth.constraints.PasswordMatchValidator;
+import com.softamo.micronaut.dbauth.constraints.RepeatPassword;
 import io.micronaut.core.beans.BeanIntrospection;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import org.junit.jupiter.api.Test;

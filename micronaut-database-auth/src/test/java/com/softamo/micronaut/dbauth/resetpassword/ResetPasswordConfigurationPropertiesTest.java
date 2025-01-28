@@ -15,16 +15,20 @@
  */
 package com.softamo.micronaut.dbauth.resetpassword;
 
-import io.micronaut.core.annotation.NonNull;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+import org.junit.jupiter.api.Test;
 
-/**
- * Reset Password Service.
- * @author Sergio del Amo
- * @since 0.0.1
- */
-public interface ResetPasswordService {
-    void resetPassword(@NonNull @NotBlank @Email String email,
-                       @NonNull @NotBlank String password);
+import static org.junit.jupiter.api.Assertions.*;
+
+class ResetPasswordConfigurationPropertiesTest {
+
+    @Test
+    void testSetters() {
+        ResetPasswordConfigurationProperties configuration = new ResetPasswordConfigurationProperties();
+        configuration.setEnabled(false);
+        configuration.setPath("/foo");
+        configuration.setView("bar.html");
+        assertFalse(configuration.isEnabled());
+        assertEquals("/foo", configuration.getPath());
+        assertEquals("bar.html", configuration.getView());
+    }
 }

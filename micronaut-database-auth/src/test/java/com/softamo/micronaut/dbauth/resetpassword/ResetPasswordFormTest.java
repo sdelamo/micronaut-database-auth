@@ -15,16 +15,35 @@
  */
 package com.softamo.micronaut.dbauth.resetpassword;
 
+import com.softamo.micronaut.dbauth.constraints.RepeatPassword;
 import io.micronaut.core.beans.BeanIntrospection;
 import io.micronaut.core.type.Argument;
 import io.micronaut.serde.SerdeIntrospections;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import jakarta.validation.Validator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @MicronautTest(startApplication = false)
 class ResetPasswordFormTest {
+
+    @Test
+    void implementsRepeatPassword() {
+        assertInstanceOf(RepeatPassword.class, new ResetPasswordForm("xyz", "password", "password"));
+    }
+
+    @Test
+    void notMatchingPasswordsFailsValidation(Validator validator) {
+        assertTrue(validator.validate(new ResetPasswordForm("xyz", "password", "password")).isEmpty());
+        assertFalse(validator.validate(new ResetPasswordForm("xyz", "password", "password1")).isEmpty());
+    }
+
+    @Test
+    void tokenCannotBeBlank(Validator validator) {
+        assertFalse(validator.validate(new ResetPasswordForm("", "password", "password")).isEmpty());
+        assertFalse(validator.validate(new ResetPasswordForm(null, "password", "password")).isEmpty());
+    }
 
     @Test
     void isAnnotatedWithIntrospected() {

@@ -13,18 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.softamo.micronaut.dbauth.resetpassword;
+package com.softamo.micronaut.dbauth.utils;
 
-import io.micronaut.core.annotation.NonNull;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+import io.micronaut.core.annotation.Internal;
 
 /**
- * Reset Password Service.
+ * Constants for Views.
  * @author Sergio del Amo
  * @since 0.0.1
  */
-public interface ResetPasswordService {
-    void resetPassword(@NonNull @NotBlank @Email String email,
-                       @NonNull @NotBlank String password);
+@Internal
+public final class ViewsUtils {
+    /**
+     * Model key for a form.
+     */
+    public static final String KEY_FORM = "form";
+
+    private ViewsUtils() {
+    }
 }

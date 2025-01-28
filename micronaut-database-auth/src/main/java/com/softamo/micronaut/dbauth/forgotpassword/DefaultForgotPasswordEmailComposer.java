@@ -16,6 +16,7 @@
 package com.softamo.micronaut.dbauth.forgotpassword;
 
 import com.softamo.micronaut.dbauth.resetpassword.ResetPasswordConfiguration;
+import com.softamo.micronaut.dbauth.resetpassword.ResetPasswordTokenGenerator;
 import io.micronaut.context.MessageSource;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.Internal;

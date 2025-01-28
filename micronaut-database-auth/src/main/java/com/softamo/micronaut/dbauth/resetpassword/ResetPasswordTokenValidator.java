@@ -13,23 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.softamo.micronaut.dbauth;
+package com.softamo.micronaut.dbauth.resetpassword;
 
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.util.Toggleable;
+import io.micronaut.http.HttpRequest;
+import io.micronaut.security.authentication.Authentication;
+import jakarta.validation.constraints.NotBlank;
+
+import java.util.Optional;
 
 /**
- * Base configuration for all controllers.
- *
+ * Validate a Reset password token.
  * @author Sergio del Amo
  * @since 0.0.1
  */
 @FunctionalInterface
-public interface ControllerConfiguration extends Toggleable {
-
-    /**
-     * @return the path where the controller is enabled.
-     */
+public interface ResetPasswordTokenValidator {
     @NonNull
-    String getPath();
+    Optional<Authentication> validate(@NonNull @NotBlank String token, @NonNull HttpRequest<?> request);
 }

@@ -13,23 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.softamo.micronaut.dbauth;
+package com.softamo.micronaut.dbauth.resetpassword;
+
+import io.micronaut.core.annotation.NonNull;
+import jakarta.validation.constraints.NotBlank;
 
 /**
- * API for form which require password repetition. For example, signup forms, reset password forms or change password forms.
- * @since 0.0.1
+ * API to generate a reset password token to be sent to the user via email.
  * @author Sergio del Amo
+ * @since 0.0.1
  */
-public interface RepeatPassword {
+public interface ResetPasswordTokenGenerator {
     /**
      *
-     * @return Password
+     * @param email Email address
+     * @return A token
      */
-    String password();
-
-    /**
-     *
-     * @return Repeated Password
-     */
-    String repeatPassword();
+    @NonNull
+    String generateResetPasswordToken(@NonNull @NotBlank @jakarta.validation.constraints.Email String email);
 }
