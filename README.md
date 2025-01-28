@@ -74,4 +74,4 @@ signing.secretKeyRingFile=PathToYourKeyRingFile
 
 - Bump up version. Ensure `projectVersion` does not contain `-SNAPSHOT`. 
 - Tag it. E.g. `v1.0.0`
-- `./gradlew publishToSonatype closeSonatypeAndReleaseStagingRepository --info`
+- `./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository --info`
