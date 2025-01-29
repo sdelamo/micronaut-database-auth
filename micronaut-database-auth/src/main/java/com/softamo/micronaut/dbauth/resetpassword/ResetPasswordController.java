@@ -25,6 +25,8 @@ import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
 import io.micronaut.http.annotation.Error;
+import io.micronaut.scheduling.TaskExecutors;
+import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.authentication.Authentication;
 import io.micronaut.security.endpoints.LoginControllerConfiguration;
@@ -78,6 +80,7 @@ class ResetPasswordController {
                 Map.of(ViewsUtils.KEY_FORM, form)));
     }
 
+    @ExecuteOn(TaskExecutors.BLOCKING)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Post
     HttpResponse<?> resetPasswordSubmit(@NonNull @NotNull @Valid @Body ResetPasswordForm resetPasswordForm,

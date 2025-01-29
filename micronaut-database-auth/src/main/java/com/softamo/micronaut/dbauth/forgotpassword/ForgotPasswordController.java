@@ -26,6 +26,8 @@ import io.micronaut.http.annotation.*;
 import io.micronaut.http.annotation.Error;
 import io.micronaut.http.server.util.HttpHostResolver;
 import io.micronaut.http.server.util.locale.HttpLocaleResolver;
+import io.micronaut.scheduling.TaskExecutors;
+import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.views.ModelAndView;
@@ -70,6 +72,7 @@ class ForgotPasswordController {
                 Map.of(ViewsUtils.KEY_FORM, form));
     }
 
+    @ExecuteOn(TaskExecutors.BLOCKING)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Post
     ModelAndView<Map<String, Object>> forgotPasswordSubmit(@NonNull @NotNull @Valid @Body ForgotPasswordForm forgotPasswordForm,
