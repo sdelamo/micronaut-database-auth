@@ -18,7 +18,9 @@ package com.softamo.micronaut.dbauth.forgotpassword;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.email.Email;
 import io.micronaut.email.EmailSender;
+import io.micronaut.scheduling.annotation.Async;
 import jakarta.inject.Singleton;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -44,6 +46,12 @@ class DefaultForgotPasswordFormService implements ForgotPasswordFormService {
     public void handleForgotPasswordFormSubmission(@NonNull @NotNull Locale locale,
                                                    @NonNull @NotBlank String host,
                                                    @NonNull @NotNull @Valid ForgotPasswordForm form) {
-        emailSender.send(forgotPasswordEmailComposer.composeForgotPasswordEmail(locale, host, form.email()));
+        Email.Builder email = forgotPasswordEmailComposer.composeForgotPasswordEmail(locale, host, form.email());
+        sendEmail(email);
+    }
+
+    @Async
+    public void sendEmail(Email.Builder email) {
+        emailSender.send(email);
     }
 }
