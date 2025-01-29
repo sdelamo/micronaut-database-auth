@@ -16,6 +16,7 @@
 package com.softamo.micronaut.dbauth.resetpassword;
 
 import io.micronaut.context.annotation.Requires;
+import io.micronaut.core.annotation.Blocking;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.scheduling.TaskExecutors;
@@ -50,6 +51,7 @@ class DefaultResetPasswordValidator implements ResetPasswordTokenValidator {
 
     @Override
     @NonNull
+    @Blocking
     public Optional<Authentication> validate(@NonNull @NotBlank String token, HttpRequest<?> request) {
         for (TokenValidator<HttpRequest<?>> validator : validators) {
             try {
