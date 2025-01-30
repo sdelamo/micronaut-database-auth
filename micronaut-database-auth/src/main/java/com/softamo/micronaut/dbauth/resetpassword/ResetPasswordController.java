@@ -75,7 +75,7 @@ class ResetPasswordController {
         if (authenticationOptional.isEmpty()) {
             return HttpResponse.notFound();
         }
-        Form form = formGenerator.generate(resetPasswordConfiguration.getPath(), ForgotPasswordForm.class);
+        Form form = formGenerator.generate(resetPasswordConfiguration.getPath(), ResetPasswordForm.class);
         return HttpResponse.ok(new ModelAndView<>(resetPasswordConfiguration.getView(),
                 Map.of(ViewsUtils.KEY_FORM, form)));
     }
