@@ -29,6 +29,7 @@ import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.authentication.Authentication;
+import io.micronaut.security.config.UnauthorizedRedirectConfiguration;
 import io.micronaut.security.endpoints.LoginControllerConfiguration;
 import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.views.ModelAndView;
@@ -49,18 +50,18 @@ import java.util.Optional;
 @Secured(SecurityRule.IS_ANONYMOUS)
 @Controller("${" + ResetPasswordConfigurationProperties.PREFIX + ".path:/resetPassword}")
 class ResetPasswordController {
-    private final LoginControllerConfiguration loginControllerConfiguration;
+    private final UnauthorizedRedirectConfiguration unauthorizedRedirectConfiguration;
     private final ResetPasswordConfiguration resetPasswordConfiguration;
     private final FormGenerator formGenerator;
     private final ResetPasswordService resetPasswordService;
     private final ResetPasswordTokenValidator resetPasswordTokenValidator;
 
-    ResetPasswordController(LoginControllerConfiguration loginControllerConfiguration,
+    ResetPasswordController(UnauthorizedRedirectConfiguration unauthorizedRedirectConfiguration,
                             ResetPasswordConfiguration resetPasswordConfiguration,
                             FormGenerator formGenerator,
                             ResetPasswordService resetPasswordService,
                             ResetPasswordTokenValidator resetPasswordTokenValidator) {
-        this.loginControllerConfiguration = loginControllerConfiguration;
+        this.unauthorizedRedirectConfiguration = unauthorizedRedirectConfiguration;
         this.resetPasswordConfiguration = resetPasswordConfiguration;
         this.formGenerator = formGenerator;
         this.resetPasswordService = resetPasswordService;
@@ -75,7 +76,7 @@ class ResetPasswordController {
         if (authenticationOptional.isEmpty()) {
             return HttpResponse.notFound();
         }
-        Form form = formGenerator.generate(resetPasswordConfiguration.getPath(), ResetPasswordForm.class);
+        Form form = formGenerator.generate(resetPasswordConfiguration.getPath(), new ResetPasswordForm(token, null, null));
         return HttpResponse.ok(new ModelAndView<>(resetPasswordConfiguration.getView(),
                 Map.of(ViewsUtils.KEY_FORM, form)));
     }
@@ -91,7 +92,7 @@ class ResetPasswordController {
         }
         Authentication authentication = authenticationOptional.get();
         resetPasswordService.resetPassword(authentication.getName(), resetPasswordForm.password());
-        return HttpResponse.seeOther(URI.create(loginControllerConfiguration.getPath()));
+        return HttpResponse.seeOther(URI.create(unauthorizedRedirectConfiguration.getUrl()));
     }
 
     @Error

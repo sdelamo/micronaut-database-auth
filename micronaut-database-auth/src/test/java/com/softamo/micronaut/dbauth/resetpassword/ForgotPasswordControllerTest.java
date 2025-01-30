@@ -44,7 +44,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Property(name = "micronaut.http.client.follow-redirects", value = StringUtils.FALSE)
-@Property(name = "micronaut.security.unauthorized.url", value = "/login")
+@Property(name = "micronaut.security.redirect.unauthorized.url", value = "/security/login")
 @Property(name = "spec.name", value = "ResetPasswordControllerTest")
 @MicronautTest
 class ResetPasswordControllerTest {
@@ -73,6 +73,7 @@ class ResetPasswordControllerTest {
         assertTrue(html.contains("<form"));
         assertTrue(html.contains("action=\"/resetPassword\""));
         assertTrue(html.contains("name=\"token\""));
+        assertTrue(html.contains("value=\""+ token +"\""));
         assertTrue(html.contains("name=\"password\""));
         assertTrue(html.contains("name=\"repeatPassword\""));
     }
@@ -99,7 +100,7 @@ class ResetPasswordControllerTest {
         HttpResponse<?> response = assertDoesNotThrow(() -> client.exchange(resetPasswordRequest, ARG_HTML, ARG_HTML));
         String location = response.getHeaders().get(HttpHeaders.LOCATION);
         assertNotNull(location);
-        assertEquals("/login", location);
+        assertEquals("/security/login", location);
     }
 
     private static HttpRequest<?> resetPasswordFormRequest(String token) {
