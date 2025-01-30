@@ -73,7 +73,7 @@ class ResetPasswordControllerTest {
         assertTrue(html.contains("<form"));
         assertTrue(html.contains("action=\"/resetPassword\""));
         assertTrue(html.contains("name=\"token\""));
-        assertTrue(html.contains("value=\""+ token +"\""));
+        assertTrue(html.contains("value=\"" + token + "\""));
         assertTrue(html.contains("name=\"password\""));
         assertTrue(html.contains("name=\"repeatPassword\""));
     }

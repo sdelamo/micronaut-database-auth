@@ -16,7 +16,6 @@
 package com.softamo.micronaut.dbauth.resetpassword;
 
 import com.softamo.micronaut.dbauth.utils.ViewsUtils;
-import com.softamo.micronaut.dbauth.forgotpassword.ForgotPasswordForm;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.util.StringUtils;
