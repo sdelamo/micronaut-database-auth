@@ -23,6 +23,7 @@ import io.micronaut.http.*;
 import io.micronaut.http.client.BlockingHttpClient;
 import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
+import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.test.annotation.MockBean;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
@@ -30,6 +31,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledInNativeImage;
 
 import java.util.Map;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -48,10 +50,10 @@ class SignupControllerTest {
     @DisabledInNativeImage
     @Test
     void signupFormIsRendered(@Client("/") HttpClient httpClient) {
-        HttpRequest<?> forgotPasswordRequest =
+        HttpRequest<?> req =
                 HttpRequest.GET(PATH).accept(MediaType.TEXT_HTML);
         BlockingHttpClient client = httpClient.toBlocking();
-        String html = assertDoesNotThrow(() -> client.retrieve(forgotPasswordRequest, ARG_HTML, ARG_HTML));
+        String html = assertDoesNotThrow(() -> client.retrieve(req, ARG_HTML, ARG_HTML));
         assertNotNull(html);
         assertTrue(html.contains("<form"));
         assertTrue(html.contains("action=\"/signup\""));
@@ -63,17 +65,42 @@ class SignupControllerTest {
         assertTrue(html.contains("name=\"repeatPassword\""));
     }
 
+    @DisabledInNativeImage
     @Test
     void signupFormSubmission(@Client("/") HttpClient httpClient) {
         SignUpForm signUpForm = new SignUpForm("sergio@email.com", "password", "password");
-        HttpRequest<?> forgotPasswordRequest =
+        HttpRequest<?> req =
                 HttpRequest.POST(PATH, Map.of("email", signUpForm.email(), "password", signUpForm.password(), "repeatPassword", signUpForm.repeatPassword()))
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED);
         BlockingHttpClient client = httpClient.toBlocking();
-        HttpResponse<?> response = assertDoesNotThrow(() -> client.exchange(forgotPasswordRequest));
+        HttpResponse<?> response = assertDoesNotThrow(() -> client.exchange(req));
         assertEquals(HttpStatus.SEE_OTHER, response.getStatus());
         assertEquals("/security/login", response.getHeaders().get(HttpHeaders.LOCATION));
         verify(signupService).signup(signUpForm);
+    }
+
+    @DisabledInNativeImage
+    @Test
+    void signupFormSubmissionWithNotMatchingPassword(@Client("/") HttpClient httpClient) {
+        SignUpForm signUpForm = new SignUpForm("sergio@email.com", "password", "donotmatch");
+        HttpRequest<?> req =
+                HttpRequest.POST(PATH, Map.of("email", signUpForm.email(), "password", signUpForm.password(), "repeatPassword", signUpForm.repeatPassword()))
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED);
+        BlockingHttpClient client = httpClient.toBlocking();
+
+        HttpClientResponseException ex = assertThrows(HttpClientResponseException.class, () -> client.retrieve(req, ARG_HTML, ARG_HTML));
+        Optional<String> htmlOptional = ex.getResponse().getBody(String.class);
+        assertTrue(htmlOptional.isPresent());
+        String html = htmlOptional.get();
+        assertNotNull(html);
+        assertTrue(html.contains("<form"));
+        assertTrue(html.contains("action=\"/signup\""));
+        assertFalse(html.contains("type=\"text\""));
+        assertTrue(html.contains("type=\"email\""));
+        assertTrue(html.contains("name=\"email\""));
+        assertTrue(html.contains("type=\"password\""));
+        assertTrue(html.contains("name=\"password\""));
+        assertTrue(html.contains("name=\"repeatPassword\""));
     }
 
     @Requires(property = "spec.name", value = "SignupControllerTest")
@@ -81,5 +108,4 @@ class SignupControllerTest {
     SignupService mockSignupService() {
         return mock(SignupService.class);
     }
-
 }
