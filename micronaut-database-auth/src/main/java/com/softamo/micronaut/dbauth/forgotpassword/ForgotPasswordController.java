@@ -40,6 +40,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 
 @Requires(property = ForgotPasswordConfigurationProperties.PREFIX + ".enabled", notEquals = StringUtils.FALSE, defaultValue = StringUtils.TRUE)
 @Controller("${" + ForgotPasswordConfigurationProperties.PREFIX + ".path:/forgotPassword}")
@@ -67,9 +68,7 @@ class ForgotPasswordController {
     @Produces(MediaType.TEXT_HTML)
     @Get
     ModelAndView<Map<String, Object>> forgotPassword() {
-        Form form = formGenerator.generate(forgotPasswordConfiguration.getPath(), ForgotPasswordForm.class);
-        return new ModelAndView<>(forgotPasswordConfiguration.getView(),
-                Map.of(ViewsUtils.KEY_FORM, form));
+        return forgotPassword(formGenerator.generate(forgotPasswordConfiguration.getPath(), ForgotPasswordForm.class));
     }
 
     @ExecuteOn(TaskExecutors.BLOCKING)
@@ -85,8 +84,18 @@ class ForgotPasswordController {
     }
 
     @Error
-    public HttpResponse<ModelAndView<Map<String, Object>>> error(ConstraintViolationException e) {
-        return HttpResponse.unprocessableEntity().body(forgotPassword());
+    public HttpResponse<ModelAndView<Map<String, Object>>> error(ConstraintViolationException e, HttpRequest<?> request) {
+        Optional<ForgotPasswordForm> formOptional = request.getBody(ForgotPasswordForm.class);
+        if (formOptional.isPresent()) {
+            return HttpResponse.unprocessableEntity().body(forgotPassword(formGenerator.generate(forgotPasswordConfiguration.getPath(), formOptional.get(), e)));
+        }
+        return HttpResponse.unprocessableEntity();
+
+    }
+
+    private ModelAndView<Map<String, Object>> forgotPassword(Form form) {
+        return new ModelAndView<>(forgotPasswordConfiguration.getView(),
+                Map.of(ViewsUtils.KEY_FORM, form));
     }
 
 }

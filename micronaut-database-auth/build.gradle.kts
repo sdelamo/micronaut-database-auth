@@ -20,5 +20,6 @@ dependencies {
     testImplementation(mn.micronaut.security.jwt)
     testImplementation(mn.micronaut.views.thymeleaf)
     testImplementation(mn.micronaut.http.server.netty)
-    testImplementation(mn.micronaut.http.client.jdk)
+    testImplementation(mn.micronaut.http.client)
+    testImplementation(mn.mockito.core)
 }
