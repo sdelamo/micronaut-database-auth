@@ -27,8 +27,7 @@ import org.junit.jupiter.api.condition.DisabledInNativeImage;
 import java.util.Locale;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @Property(name = "spec.name", value = "DefaultForgotPasswordFormServiceTest")
 @Property(name = "micronaut.email.from.email", value = "sender@email.com")
@@ -41,7 +40,7 @@ class DefaultForgotPasswordFormServiceTest {
     @Test
     void testDefaultForgotPasswordFormService(ForgotPasswordFormService service) {
         service.handleForgotPasswordFormSubmission(Locale.ENGLISH, "http://localhost:8080", new ForgotPasswordForm("sergio@example.com"));
-        verify(emailSender).send(any());
+        verify(emailSender, timeout(1000)).send(any());
     }
 
     @Requires(property = "spec.name", value = "DefaultForgotPasswordFormServiceTest")
