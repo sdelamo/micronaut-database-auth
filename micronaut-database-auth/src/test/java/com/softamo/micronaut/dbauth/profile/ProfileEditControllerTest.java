@@ -23,6 +23,7 @@ import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledInNativeImage;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
@@ -32,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 class ProfileEditControllerTest {
     public static final String PATH = "/profile/edit";
 
+    @DisabledInNativeImage
     @Test
     void resetPasswordFormIsRendered(@Client("/") HttpClient httpClient) {
         BlockingHttpClient client = httpClient.toBlocking();
