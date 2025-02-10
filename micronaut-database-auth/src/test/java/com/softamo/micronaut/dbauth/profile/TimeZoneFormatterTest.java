@@ -13,21 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.softamo.micronaut.dbauth.i18n;
+package com.softamo.micronaut.dbauth.profile;
 
-import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.annotation.Nullable;
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import java.util.TimeZone;
 
-/**
- * I18n configuration.
- */
-public interface I18nConfiguration {
-    @Nullable
-    List<Language> getLanguages();
+import static org.junit.jupiter.api.Assertions.*;
 
-    @NonNull
-    TimeZone getDefaultTimeZone();
+@MicronautTest(startApplication = false)
+class TimeZoneFormatterTest {
+
+    @Test
+    void format(TimeZoneFormatter formatter) {
+        assertEquals("America/New_York (Eastern Standard Time)", formatter.format(TimeZone.getTimeZone("America/New_York")));
+    }
 }

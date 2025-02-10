@@ -15,11 +15,22 @@
  */
 package com.softamo.micronaut.dbauth.profile;
 
+import com.softamo.micronaut.dbauth.i18n.LanguageOptionFetcher;
+import io.micronaut.core.annotation.NonNull;
 import io.micronaut.serde.annotation.Serdeable;
+import io.micronaut.views.fields.annotations.Select;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+import java.util.TimeZone;
 
 /**
  * Profile edit form.
+ * @param timeZone Time Zone
+ * @param language Language
  */
 @Serdeable
-public record ProfileEditForm() {
+public record ProfileEditForm(
+        @Select(fetcher = TimeZoneFetcher.class) @NonNull @NotNull TimeZone timeZone,
+        @Select(fetcher = LanguageOptionFetcher.class) @NonNull @NotBlank String language) {
 }

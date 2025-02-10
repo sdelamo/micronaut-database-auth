@@ -19,12 +19,21 @@ import io.micronaut.core.beans.BeanIntrospection;
 import io.micronaut.core.type.Argument;
 import io.micronaut.serde.SerdeIntrospections;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import jakarta.validation.Validator;
 import org.junit.jupiter.api.Test;
+
+import java.util.TimeZone;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @MicronautTest(startApplication = false)
 class ProfileEditFormTest {
+
+    @Test
+    void blankLanguage(Validator validator) {
+        assertFalse(validator.validate(new ProfileEditForm(TimeZone.getDefault(), "")).isEmpty());
+        assertFalse(validator.validate(new ProfileEditForm(TimeZone.getDefault(), null)).isEmpty());
+    }
 
     @Test
     void isAnnotatedWithIntrospected() {

@@ -16,13 +16,28 @@
 package com.softamo.micronaut.dbauth.i18n;
 
 import io.micronaut.context.annotation.ConfigurationProperties;
+import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 
 import java.util.List;
+import java.util.TimeZone;
 
 @ConfigurationProperties("i18n")
 class I18NConfigurationProperties implements I18nConfiguration {
+    public static final TimeZone DEFAULT = TimeZone.getDefault();
     private List<Language> languages;
+
+    @NonNull
+    private TimeZone defaultTimeZone = DEFAULT;
+
+    @NonNull
+    public TimeZone getDefaultTimeZone() {
+        return defaultTimeZone;
+    }
+
+    public void setDefaultTimeZone(@NonNull TimeZone defaultTimeZone) {
+        this.defaultTimeZone = defaultTimeZone;
+    }
 
     @Override
     @Nullable

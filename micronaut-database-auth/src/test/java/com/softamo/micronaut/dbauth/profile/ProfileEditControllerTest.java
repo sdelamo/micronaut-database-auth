@@ -26,7 +26,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledInNativeImage;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Property(name = "i18n.languages[0]", value = "SPANISH")
+@Property(name = "i18n.languages[1]", value = "GALICIAN")
+@Property(name = "i18n.languages[2]", value = "CATALAN")
+@Property(name = "i18n.languages[3]", value = "BASQUE")
+@Property(name = "i18n.languages[4]", value = "VALENCIAN")
+@Property(name = "i18n.default-timezone", value = "Europe/Madrid")
 @Property(name = "micronaut.security.mock.username", value = "sdelamo")
 @Property(name = "spec.name", value = "ProfileEditController")
 @MicronautTest
@@ -35,8 +42,10 @@ class ProfileEditControllerTest {
 
     @DisabledInNativeImage
     @Test
-    void resetPasswordFormIsRendered(@Client("/") HttpClient httpClient) {
+    void profileEditFormIsRendered(@Client("/") HttpClient httpClient) {
         BlockingHttpClient client = httpClient.toBlocking();
         String html = assertDoesNotThrow(() -> client.retrieve(HttpRequest.GET(PATH).accept(MediaType.TEXT_HTML)));
+        assertTrue(html.contains("Español"));
+        assertTrue(html.contains("<option value=\"Europe/Madrid\" selected=\"selected\">Europe/Madrid (Central European Standard Time)</option>"));
     }
 }

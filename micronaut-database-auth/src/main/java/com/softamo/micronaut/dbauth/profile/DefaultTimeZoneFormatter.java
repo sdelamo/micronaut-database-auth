@@ -13,21 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.softamo.micronaut.dbauth.i18n;
+package com.softamo.micronaut.dbauth.profile;
 
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.annotation.Nullable;
+import jakarta.inject.Singleton;
+import jakarta.validation.constraints.NotNull;
 
-import java.util.List;
 import java.util.TimeZone;
 
-/**
- * I18n configuration.
- */
-public interface I18nConfiguration {
-    @Nullable
-    List<Language> getLanguages();
+@Singleton
+class DefaultTimeZoneFormatter implements TimeZoneFormatter {
 
+    @Override
     @NonNull
-    TimeZone getDefaultTimeZone();
+    public String format(@NonNull @NotNull TimeZone timeZone) {
+        return timeZone.getID() + " (" + timeZone.getDisplayName() + ")";
+    }
 }
