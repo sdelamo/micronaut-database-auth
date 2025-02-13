@@ -15,9 +15,12 @@
  */
 package com.softamo.micronaut.dbauth.forgotpassword;
 
+import com.softamo.micronaut.dbauth.repositories.UserNotFoundException;
+import com.softamo.micronaut.dbauth.repositories.UserRepository;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.email.Email;
 import io.micronaut.email.EmailSender;
 import io.micronaut.scheduling.annotation.Async;
@@ -34,18 +37,25 @@ import java.util.Locale;
 class DefaultForgotPasswordFormService implements ForgotPasswordFormService {
     private final EmailSender<?, ?> emailSender;
     private final ForgotPasswordEmailComposer forgotPasswordEmailComposer;
+    @Nullable
+    private final UserRepository userRepository;
 
     DefaultForgotPasswordFormService(
             EmailSender<?, ?> emailSender,
-            ForgotPasswordEmailComposer forgotPasswordEmailComposer) {
+            ForgotPasswordEmailComposer forgotPasswordEmailComposer,
+            @Nullable UserRepository userRepository) {
         this.emailSender = emailSender;
         this.forgotPasswordEmailComposer = forgotPasswordEmailComposer;
+        this.userRepository = userRepository;
     }
 
     @Override
     public void handleForgotPasswordFormSubmission(@NonNull @NotNull Locale locale,
                                                    @NonNull @NotBlank String host,
                                                    @NonNull @NotNull @Valid ForgotPasswordForm form) {
+        if (userRepository != null && !userRepository.existsByEmail(form.email())) {
+            throw new UserNotFoundException();
+        }
         Email.Builder email = forgotPasswordEmailComposer.composeForgotPasswordEmail(locale, host, form.email());
         sendEmail(email);
     }
