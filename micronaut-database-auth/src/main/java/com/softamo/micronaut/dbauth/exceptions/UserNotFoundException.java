@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.softamo.micronaut.dbauth.repositories;
+package com.softamo.micronaut.dbauth.exceptions;
 
 /**
  * Exception thrown when a user is not found.

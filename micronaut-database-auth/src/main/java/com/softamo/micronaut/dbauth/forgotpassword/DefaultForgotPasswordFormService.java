@@ -15,7 +15,7 @@
  */
 package com.softamo.micronaut.dbauth.forgotpassword;
 
-import com.softamo.micronaut.dbauth.repositories.UserNotFoundException;
+import com.softamo.micronaut.dbauth.exceptions.UserNotFoundException;
 import com.softamo.micronaut.dbauth.repositories.UserRepository;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.Internal;
