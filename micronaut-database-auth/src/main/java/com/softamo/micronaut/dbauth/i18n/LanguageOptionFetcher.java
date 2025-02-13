@@ -23,6 +23,9 @@ import jakarta.inject.Singleton;
 
 import java.util.List;
 
+/**
+ * {@link OptionFetcher} implementation for {@link Language}.
+ */
 @Singleton
 public class LanguageOptionFetcher implements OptionFetcher<String> {
     private final List<Language> languages;

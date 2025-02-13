@@ -15,6 +15,7 @@
  */
 package com.softamo.micronaut.dbauth.resetpassword;
 
+import com.softamo.micronaut.dbauth.utils.ControllerConfiguration;
 import io.micronaut.context.annotation.ConfigurationProperties;
 
 /**
@@ -25,7 +26,7 @@ import io.micronaut.context.annotation.ConfigurationProperties;
  */
 @ConfigurationProperties(ResetPasswordConfigurationProperties.PREFIX)
 class ResetPasswordConfigurationProperties implements ResetPasswordConfiguration {
-    public static final String PREFIX = "forgot-password";
+    public static final String PREFIX = ControllerConfiguration.PREFIX + ".resetpassword";
     private boolean enabled = true;
     private String path = "/resetPassword";
     private String view = "resetPassword.html";

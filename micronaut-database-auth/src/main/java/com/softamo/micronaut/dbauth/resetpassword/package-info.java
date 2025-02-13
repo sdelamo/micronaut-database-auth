@@ -13,21 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.softamo.micronaut.dbauth.profile;
+/**
+ * Reset Password related classes.
+ */
+@Requires(property = ResetPasswordConfigurationProperties.PREFIX + ".enabled", notEquals = StringUtils.FALSE, defaultValue = StringUtils.TRUE)
+@Configuration
+package com.softamo.micronaut.dbauth.resetpassword;
 
-import com.softamo.micronaut.dbauth.profile.timezone.TimeZoneFormatter;
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
-import org.junit.jupiter.api.Test;
-
-import java.util.TimeZone;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-@MicronautTest(startApplication = false)
-class TimeZoneFormatterTest {
-
-    @Test
-    void format(TimeZoneFormatter formatter) {
-        assertEquals("America/New_York (Eastern Standard Time)", formatter.format(TimeZone.getTimeZone("America/New_York")));
-    }
-}
+import io.micronaut.context.annotation.Configuration;
+import io.micronaut.context.annotation.Requires;
+import io.micronaut.core.util.StringUtils;

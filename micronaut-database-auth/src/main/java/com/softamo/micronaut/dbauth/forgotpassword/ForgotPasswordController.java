@@ -44,7 +44,12 @@ import java.util.Optional;
 
 @Requires(property = ForgotPasswordConfigurationProperties.PREFIX + ".enabled", notEquals = StringUtils.FALSE, defaultValue = StringUtils.TRUE)
 @Controller("${" + ForgotPasswordConfigurationProperties.PREFIX + ".path:/forgotPassword}")
-@Requires(beans = {HttpLocaleResolver.class, HttpHostResolver.class, FormGenerator.class, ForgotPasswordConfiguration.class, ForgotPasswordFormService.class})
+@Requires(beans = {
+        HttpLocaleResolver.class,
+        HttpHostResolver.class,
+        FormGenerator.class,
+        ForgotPasswordConfiguration.class,
+        ForgotPasswordFormService.class})
 @Secured(SecurityRule.IS_ANONYMOUS)
 class ForgotPasswordController {
     private final HttpLocaleResolver httpLocaleResolver;

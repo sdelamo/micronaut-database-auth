@@ -19,7 +19,15 @@ import io.micronaut.core.annotation.NonNull;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
+/**
+ * User Repository.
+ */
 public interface UserRepository {
 
+    /**
+     *
+     * @param email User email address
+     * @return {@code true} if a user with the given email exists.
+     */
     boolean existsByEmail(@NonNull @NotBlank @Email String email);
 }

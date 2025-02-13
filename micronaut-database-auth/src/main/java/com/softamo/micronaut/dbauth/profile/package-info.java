@@ -13,15 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/**
+ * Profile related classes.
+ */
+@Requires(property = ProfileConfigurationProperties.PREFIX + ".enabled", notEquals = StringUtils.FALSE, defaultValue = StringUtils.TRUE)
+@Configuration
 package com.softamo.micronaut.dbauth.profile;
 
-import io.micronaut.core.annotation.NonNull;
-import jakarta.validation.constraints.NotNull;
-
-import java.util.TimeZone;
-
-public interface TimeZoneFormatter {
-
-    @NonNull
-    String format(@NonNull @NotNull TimeZone timeZone);
-}
+import io.micronaut.context.annotation.Configuration;
+import io.micronaut.context.annotation.Requires;
+import io.micronaut.core.util.StringUtils;

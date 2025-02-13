@@ -26,6 +26,7 @@ import io.micronaut.core.util.Toggleable;
  */
 @FunctionalInterface
 public interface ControllerConfiguration extends Toggleable {
+    String PREFIX = "dbauth";
 
     /**
      * @return the path where the controller is enabled.

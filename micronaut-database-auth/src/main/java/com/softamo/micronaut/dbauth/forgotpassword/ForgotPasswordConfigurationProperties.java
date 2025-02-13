@@ -15,6 +15,7 @@
  */
 package com.softamo.micronaut.dbauth.forgotpassword;
 
+import com.softamo.micronaut.dbauth.utils.ControllerConfiguration;
 import io.micronaut.context.annotation.ConfigurationProperties;
 
 /**
@@ -25,7 +26,7 @@ import io.micronaut.context.annotation.ConfigurationProperties;
  */
 @ConfigurationProperties(ForgotPasswordConfigurationProperties.PREFIX)
 class ForgotPasswordConfigurationProperties implements ForgotPasswordConfiguration {
-    public static final String PREFIX = "forgot-password";
+    public static final String PREFIX = ControllerConfiguration.PREFIX + ".forgotpassword";
     private boolean enabled = true;
     private String path = "/forgotPassword";
     private String view = "forgotPassword.html";

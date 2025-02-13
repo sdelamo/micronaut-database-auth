@@ -13,20 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.softamo.micronaut.dbauth.profile;
+package com.softamo.micronaut.dbauth.profile.timezone;
 
 import io.micronaut.core.annotation.NonNull;
-import jakarta.inject.Singleton;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.TimeZone;
 
-@Singleton
-class DefaultTimeZoneFormatter implements TimeZoneFormatter {
+public interface TimeZoneFormatter {
 
-    @Override
     @NonNull
-    public String format(@NonNull @NotNull TimeZone timeZone) {
-        return timeZone.getID() + " (" + timeZone.getDisplayName() + ")";
-    }
+    String format(@NonNull @NotNull TimeZone timeZone);
 }

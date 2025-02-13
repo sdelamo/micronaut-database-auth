@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.softamo.micronaut.dbauth.profile;
+package com.softamo.micronaut.dbauth.profile.timezone;
 
 import com.softamo.micronaut.dbauth.i18n.I18nConfiguration;
 import io.micronaut.core.annotation.NonNull;

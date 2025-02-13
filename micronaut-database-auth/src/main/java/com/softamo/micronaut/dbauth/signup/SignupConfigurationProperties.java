@@ -15,6 +15,7 @@
  */
 package com.softamo.micronaut.dbauth.signup;
 
+import com.softamo.micronaut.dbauth.utils.ControllerConfiguration;
 import io.micronaut.context.annotation.ConfigurationProperties;
 
 /**
@@ -25,7 +26,7 @@ import io.micronaut.context.annotation.ConfigurationProperties;
  */
 @ConfigurationProperties(SignupConfigurationProperties.PREFIX)
 class SignupConfigurationProperties implements SignupConfiguration {
-    public static final String PREFIX = "signup";
+    public static final String PREFIX = ControllerConfiguration.PREFIX + ".signup";
     public static final String DEFAULT_PATH = "/signup";
     private boolean enabled = true;
     private String path = DEFAULT_PATH;

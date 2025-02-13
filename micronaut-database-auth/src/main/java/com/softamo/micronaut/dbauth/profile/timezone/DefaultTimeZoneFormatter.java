@@ -13,25 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.softamo.micronaut.dbauth.profile;
+package com.softamo.micronaut.dbauth.profile.timezone;
 
-import com.softamo.micronaut.dbauth.i18n.LanguageOptionFetcher;
-import com.softamo.micronaut.dbauth.profile.timezone.TimeZoneFetcher;
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.serde.annotation.Serdeable;
-import io.micronaut.views.fields.annotations.Select;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.inject.Singleton;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.TimeZone;
 
-/**
- * Profile edit form.
- * @param timeZone Time Zone
- * @param language Language
- */
-@Serdeable
-public record ProfileEditForm(
-        @Select(fetcher = TimeZoneFetcher.class) @NonNull @NotNull TimeZone timeZone,
-        @Select(fetcher = LanguageOptionFetcher.class) @NonNull @NotBlank String language) {
+@Singleton
+class DefaultTimeZoneFormatter implements TimeZoneFormatter {
+
+    @Override
+    @NonNull
+    public String format(@NonNull @NotNull TimeZone timeZone) {
+        return timeZone.getID() + " (" + timeZone.getDisplayName() + ")";
+    }
 }

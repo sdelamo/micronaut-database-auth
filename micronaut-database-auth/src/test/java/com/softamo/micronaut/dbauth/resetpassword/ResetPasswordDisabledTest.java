@@ -13,21 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.softamo.micronaut.dbauth.profile;
+package com.softamo.micronaut.dbauth.resetpassword;
 
-import com.softamo.micronaut.dbauth.profile.timezone.TimeZoneFormatter;
+import io.micronaut.context.BeanContext;
+import io.micronaut.context.annotation.Property;
+import io.micronaut.core.util.StringUtils;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
-
-import java.util.TimeZone;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Property(name = "dbauth.resetpassword.enabled", value = StringUtils.FALSE)
 @MicronautTest(startApplication = false)
-class TimeZoneFormatterTest {
+class ResetPasswordDisabledTest {
+
+    @Inject
+    BeanContext beanContext;
 
     @Test
-    void format(TimeZoneFormatter formatter) {
-        assertEquals("America/New_York (Eastern Standard Time)", formatter.format(TimeZone.getTimeZone("America/New_York")));
+    void signupBeansCanBeDisabled() {
+        assertFalse(beanContext.containsBean(ResetPasswordConfiguration.class));
+        assertFalse(beanContext.containsBean(ResetPasswordService.class));
+        assertFalse(beanContext.containsBean(ResetPasswordController.class));
+        assertFalse(beanContext.containsBean(ResetPasswordTokenGenerator.class));
+        assertFalse(beanContext.containsBean(ResetPasswordTokenValidator.class));
     }
 }

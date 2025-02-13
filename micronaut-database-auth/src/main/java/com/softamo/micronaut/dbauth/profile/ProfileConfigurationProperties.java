@@ -15,6 +15,7 @@
  */
 package com.softamo.micronaut.dbauth.profile;
 
+import com.softamo.micronaut.dbauth.utils.ControllerConfiguration;
 import io.micronaut.context.annotation.ConfigurationProperties;
 
 /**
@@ -22,7 +23,7 @@ import io.micronaut.context.annotation.ConfigurationProperties;
  */
 @ConfigurationProperties(ProfileConfigurationProperties.PREFIX)
 public class ProfileConfigurationProperties implements ProfileConfiguration {
-    public static final String PREFIX = "profile";
+    public static final String PREFIX = ControllerConfiguration.PREFIX + ".profile";
     public static final String DEFAULT_PATH = "/profile";
     public static final String DEFAULT_EDIT_VIEW = "profile/edit.html";
     public static final String DEFAULT_EDIT_PATH = "/edit";
