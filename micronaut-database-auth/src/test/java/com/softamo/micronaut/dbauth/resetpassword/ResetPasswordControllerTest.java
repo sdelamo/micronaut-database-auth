@@ -16,9 +16,7 @@
 package com.softamo.micronaut.dbauth.resetpassword;
 
 import io.micronaut.context.annotation.Property;
-import io.micronaut.context.annotation.Replaces;
 import io.micronaut.context.annotation.Requires;
-import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.type.Argument;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.http.*;
@@ -32,16 +30,15 @@ import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.http.uri.UriBuilder;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
+import io.micronaut.test.annotation.MockBean;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
-import jakarta.inject.Singleton;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledInNativeImage;
 
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 @Property(name = "micronaut.http.client.follow-redirects", value = StringUtils.FALSE)
 @Property(name = "micronaut.security.redirect.unauthorized.url", value = "/security/login")
@@ -117,14 +114,9 @@ class ResetPasswordControllerTest {
     }
 
     @Requires(property = "spec.name", value = "ResetPasswordControllerTest")
-    @Replaces(ResetPasswordService.class)
-    @Singleton
-    static class ResetPasswordServiceReplacement implements ResetPasswordService {
-        @Override
-        public  void resetPassword(@NonNull @NotBlank @Email String email,
-                                   @NonNull @NotBlank String password) {
-
-        }
+    @MockBean(ResetPasswordService.class)
+    ResetPasswordService mockEmailSender() {
+        return mock(ResetPasswordService.class);
     }
 
     @Requires(property = "spec.name", value = "ResetPasswordControllerTest")
