@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" th:replace="~{layout :: layout(~{::title},~{::script},~{::main})}" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Check your email for reset instructions.</title>
+    <title></title>
     <script></script>
 </head>
 <body>
 <main>
-    <p>Check your email for reset instructions.</p>
+    <form th:replace="~{fieldset/form :: form(${form})}"></form>
 </main>
 </body>
 </html>

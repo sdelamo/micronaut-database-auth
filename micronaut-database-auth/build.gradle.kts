@@ -6,8 +6,7 @@ dependencies {
     annotationProcessor(mn.micronaut.validation.processor)
     api(mn.micronaut.validation)
     api(mn.micronaut.views.fieldset)
-
-    implementation(mn.micronaut.email)
+    api(mn.micronaut.email)
     implementation(mn.micronaut.security)
     compileOnly(mn.micronaut.security.jwt)
     compileOnly(mn.micronaut.reactor)
