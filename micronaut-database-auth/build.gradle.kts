@@ -22,3 +22,10 @@ dependencies {
     testImplementation(mn.micronaut.http.client)
     testImplementation(mn.mockito.core)
 }
+
+if (System.getenv("CI") != null && hasProperty("buildScan")) {
+    extensions.findByName("buildScan")?.withGroovyBuilder {
+        setProperty("termsOfServiceUrl", "https://gradle.com/terms-of-service")
+        setProperty("termsOfServiceAgree", "yes")
+    }
+}
