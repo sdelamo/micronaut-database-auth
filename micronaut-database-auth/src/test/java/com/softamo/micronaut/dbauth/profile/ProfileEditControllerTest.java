@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Property(name = "i18n.languages[2]", value = "CATALAN")
 @Property(name = "i18n.languages[3]", value = "BASQUE")
 @Property(name = "i18n.languages[4]", value = "VALENCIAN")
-@Property(name = "i18n.default-timezone", value = "Europe/Madrid")
+@Property(name = "i18n.default-time-zone", value = "Europe/Madrid")
 @Property(name = "micronaut.security.mock.username", value = "sdelamo")
 @Property(name = "spec.name", value = "ProfileEditController")
 @MicronautTest
