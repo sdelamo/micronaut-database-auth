@@ -5,6 +5,7 @@ plugins {
 
 rootProject.name = "micronaut-database-auth-parent"
 
+include("micronaut-email-bounce")
 include("micronaut-database-auth")
 include("code-coverage-report")
 include("docs")
