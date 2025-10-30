@@ -32,7 +32,8 @@ dependencies {
 
     // JUnit Testing
     testImplementation(mn.findLibrary("junit.jupiter.api").get())
-
+    testRuntimeOnly(mn.findLibrary("junit.jupiter.engine").get())
+    testRuntimeOnly(mn.findLibrary("junit-platform-launcher").get())
 }
 
 tasks {
