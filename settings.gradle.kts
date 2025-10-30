@@ -1,6 +1,6 @@
 plugins {
-    id("com.gradle.develocity") version("3.19.1")
     id("io.micronaut.platform.catalog") version "4.6.1"
+    id("com.gradle.develocity") version("4.2.2") // https://plugins.gradle.org/plugin/com.gradle.develocity
 }
 
 rootProject.name = "micronaut-database-auth-parent"
