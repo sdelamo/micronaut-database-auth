@@ -2,8 +2,8 @@
 micronaut="4.10.1"
 
 # Gradle plugins
-graalvm-native-buildtools = "0.10.4"
 spotless = "7.0.2"
+graalvm-native-buildtools = "0.11.2"
 micronaut-gradle-plugin = "4.6.1" # https://plugins.gradle.org/plugin/io.micronaut.application
 gebSpock = "7.0"
 seleniumVersion = "4.2.2"
