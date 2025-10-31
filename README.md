@@ -40,38 +40,30 @@ Run `./gradlew testCodeCoverageReport` and you can access the HTML report `open 
 
 The template applies the [Gradle Build Native Image Plugin](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html). You can run the Gradle task `./gradlew nativeTest` to ensure your library is compatible with Native Image.  
 
-## Publish to Sonatype OSSRH (OSS Repository Hosting)
+## Publish to Maven Central
 
-### GPG Key
-To publish to Sonatype OSSRH, you need first to [generate a GPG key](https://central.sonatype.org/publish/requirements/gpg/#generating-a-key-pair9) and [distributed your public key](https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key). 
+### 1. Set `projectVersion` and tag
+- Bump up version. Ensure `projectVersion` does not contain `-SNAPSHOT`.
+- Tag it. E.g. `v1.0.0`
 
-### User Token
-
-- [Generate a Token](https://central.sonatype.org/publish/generate-token/#generate-a-token-on-ossrh-sonatype-nexus-repository-manager-servers). Save the user token username and password.
-
-### Credentials
-
-The [credentials](https://central.sonatype.org/publish/publish-gradle/#credentials) for signing and upload can be stored in your `gradle.properties` file in your users home directory. The content would look like this
-
-`$HOME/.gradle/gradle.properties`
-
-```properties
-sonatypeUsername=SonaTypeUserTokenUserName
-sonatypePassword=SonaTypeUserTokenPassword
-# <1>
-signing.keyId=YourKeyId
-# <2>
-signing.password=YouPublicKeyPassword
-# <3>
-signing.secretKeyRingFile=PathToYourKeyRingFile
+### 2. Verify release & deploy configuration
+```
+./gradlew jreleaserConfig
 ```
 
-<1> The public key ID (The last 8 symbols of the keyId. You can use `gpg -K --keyid-format short` to get it).  
-<2> The passphrase used to protect your private key.  
-<3> The absolute path to the secret key ring file containing your private key. (Since gpg 2.1, you need to export the keys with command `gpg --keyring secring.gpg --export-secret-keys > ~/.gnupg/secring.gpg`).  
+## 3. Ensure a clean deployment
 
-### Publish Release to Sonatype OSSRH
+```
+./gradlew clean
+```
 
-- Bump up version. Ensure `projectVersion` does not contain `-SNAPSHOT`. 
-- Tag it. E.g. `v1.0.0`
-- `./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository --info`
+## 4. Stage all artifacts to a local directory
+
+```
+./gradlew publish
+```
+## 5. Deploy and release
+
+```
+./gradlew jreleaserDeploy
+```
