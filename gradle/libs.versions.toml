@@ -4,7 +4,8 @@ micronaut="4.10.1"
 # Gradle plugins
 graalvm-native-buildtools = "0.11.2"
 micronaut-gradle-plugin = "4.6.1" # https://plugins.gradle.org/plugin/io.micronaut.application
-spotless = "8.0.0"
+spotless = "7.0.2"
+jreleaser = "1.20.0" # https://plugins.gradle.org/plugin/org.jreleaser
 gebSpock = "7.0"
 seleniumVersion = "4.2.2"
 
@@ -19,3 +20,4 @@ selenium-remote-driver = { module = "org.seleniumhq.selenium:selenium-remote-dri
 selenium-chrome-driver = { module = "org.seleniumhq.selenium:selenium-chrome-driver", version.ref = "seleniumVersion" }
 selenium-firefox-driver = { module = "org.seleniumhq.selenium:selenium-firefox-driver", version.ref = "seleniumVersion" }
 selenium-safari-driver = { module = "org.seleniumhq.selenium:selenium-safari-driver", version.ref = "seleniumVersion" }
+jreleaser = { module = "org.jreleaser:org.jreleaser.gradle.plugin", version.ref = "jreleaser"}
