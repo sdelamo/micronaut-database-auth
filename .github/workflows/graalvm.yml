@@ -22,4 +22,4 @@ jobs:
       - name: Native Compile
         run: ./gradlew nativeCompile
       - name: Native Test
-        run: ./gradlew nativeCompile
+        run: ./gradlew nativeTest
