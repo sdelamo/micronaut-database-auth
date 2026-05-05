@@ -8,8 +8,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - uses: graalvm/setup-graalvm@v1.2.8 # https://github.com/graalvm/setup-graalvm
+      - uses: actions/checkout@v6.0.2 # https://github.com/actions/checkout/releases
         with:
           java-version: '25'
           distribution: 'graalvm'
