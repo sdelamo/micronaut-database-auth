@@ -7,6 +7,8 @@ dependencies {
     api(mn.micronaut.validation)
     api(mn.micronaut.views.fieldset)
     api(mn.micronaut.email)
+
+    annotationProcessor(mn.micronaut.security.processor)
     implementation(mn.micronaut.security)
     compileOnly(mn.micronaut.security.jwt)
     compileOnly(mn.micronaut.reactor)
@@ -16,6 +18,7 @@ dependencies {
     annotationProcessor(mn.micronaut.serde.processor)
     implementation(mn.micronaut.serde.jackson)
 
+    testAnnotationProcessor(mn.micronaut.security.processor)
     testImplementation(mn.micronaut.security.jwt)
     testImplementation(mn.micronaut.views.thymeleaf)
     testImplementation(mn.micronaut.http.server.netty)
