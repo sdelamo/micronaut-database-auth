@@ -2,7 +2,7 @@
 micronaut="5.0.0-M3"
 
 # Gradle plugins
-graalvm-native-buildtools = "0.11.2"
+graalvm-native-buildtools = "1.1.0" # https://github.com/graalvm/native-build-tools/releases
 micronaut-gradle-plugin = "5.0.0-M1" # https://plugins.gradle.org/plugin/io.micronaut.application
 spotless = "7.0.2"
 jreleaser = "1.20.0" # https://plugins.gradle.org/plugin/org.jreleaser
