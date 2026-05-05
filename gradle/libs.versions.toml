@@ -1,5 +1,5 @@
 [versions]
-micronaut="4.10.1"
+micronaut="5.0.0-M3"
 
 # Gradle plugins
 graalvm-native-buildtools = "0.11.2"
